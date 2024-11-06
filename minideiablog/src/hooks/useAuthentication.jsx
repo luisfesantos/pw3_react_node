@@ -1,4 +1,4 @@
-import { db } from '../firebase/config'
+import { db } from './../firebase/config'
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -35,7 +35,7 @@ export const useAuthentication = () => {
             )
 
             await updateProfile(user, {
-                displayName: data.displayName,
+                displayName: data.displayName
             })
 
             setLoading(false)
@@ -48,10 +48,10 @@ export const useAuthentication = () => {
 
             if (error.message.includes('Password')) {
                 systemErrorMessage = 'A senha precisa conter ao menos 6 caracteres.'
-            } else if (error.message.includes('email-alread')) {
-                systemErrorMessage = 'Este e-mail já existe em nossos sistemas.'
+            } else if (error.message.includes('email-already')) {
+                systemErrorMessage = 'Este e-mail já existe em nossos sistemas'
             } else {
-                systemErrorMessage = 'Tente mais tarde nosso sistema está indisponível.'
+                systemErrorMessage = 'Tente mais tarde, nosso sistema está indisponível.'
             }
 
             setLoading(false)
@@ -71,9 +71,7 @@ export const useAuthentication = () => {
                 data.email,
                 data.password
             )
-
             setLoading(false)
-
         } catch (error) {
             console.error(error.message)
             console.table(typeof error.message)
@@ -81,11 +79,11 @@ export const useAuthentication = () => {
             let systemErrorMessage
 
             if (error.message.includes('invalid-login-credentials')) {
-                systemErrorMessage = 'Este usuário não existe em nosso sistema.'
+                systemErrorMessage = 'Este usuário não existe em nosso sistemas.'
             } else if (error.message.includes('wrong-password')) {
-                systemErrorMessage = 'Há algum erro com suas informações.'
+                systemErrorMessage = 'Há algum erro com suas informações'
             } else {
-                systemErrorMessage = 'Tente mais tarde nosso sistema está indisponível.'
+                systemErrorMessage = 'Tente mais tarde, nosso sistema está indisponível.'
             }
 
             setLoading(false)
@@ -93,12 +91,12 @@ export const useAuthentication = () => {
         }
     }
 
-    const logout = ()=> {
+    const logout = () =>{
         checkIsCancelled()
         signOut(auth)
     }
 
-    useEffect(() => {
+    useEffect(() =>{
         return () => setCancelled(true)
     }, [])
 
